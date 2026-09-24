@@ -3,7 +3,7 @@ spring:
     name: ai-task-manager
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/aitaskmanager
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/aitaskmanager}
     username: postgres
     password: ${DB_PASSWORD}
 
