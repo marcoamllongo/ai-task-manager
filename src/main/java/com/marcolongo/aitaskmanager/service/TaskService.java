@@ -3,6 +3,7 @@ package com.marcolongo.aitaskmanager.service;
 import com.marcolongo.aitaskmanager.dto.CreateTaskRequest;
 import com.marcolongo.aitaskmanager.dto.TaskResponse;
 import com.marcolongo.aitaskmanager.dto.UpdateTaskRequest;
+import com.marcolongo.aitaskmanager.dto.UpdateTaskStatusRequest;
 import com.marcolongo.aitaskmanager.entity.Task;
 import com.marcolongo.aitaskmanager.exception.TaskNotFoundException;
 import com.marcolongo.aitaskmanager.repository.TaskRepository;
@@ -90,5 +91,22 @@ public class TaskService {
                 task.getStatus(),
                 task.getCreatedAt()
         );
+    }
+
+    public TaskResponse updateTaskStatus(
+            UUID id,
+            UpdateTaskStatusRequest request
+    ) {
+
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() ->
+                        new TaskNotFoundException(id)
+                );
+
+        task.setStatus(request.status());
+
+        Task updatedTask = taskRepository.save(task);
+
+        return toResponse(updatedTask);
     }
 }

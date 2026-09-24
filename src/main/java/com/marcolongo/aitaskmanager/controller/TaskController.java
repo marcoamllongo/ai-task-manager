@@ -3,6 +3,7 @@ package com.marcolongo.aitaskmanager.controller;
 import com.marcolongo.aitaskmanager.dto.CreateTaskRequest;
 import com.marcolongo.aitaskmanager.dto.TaskResponse;
 import com.marcolongo.aitaskmanager.dto.UpdateTaskRequest;
+import com.marcolongo.aitaskmanager.dto.UpdateTaskStatusRequest;
 import com.marcolongo.aitaskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -73,5 +74,17 @@ public class TaskController {
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<TaskResponse> updateTaskStatus(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateTaskStatusRequest request
+    ) {
+
+        TaskResponse response =
+                taskService.updateTaskStatus(id, request);
+
+        return ResponseEntity.ok(response);
     }
 }
