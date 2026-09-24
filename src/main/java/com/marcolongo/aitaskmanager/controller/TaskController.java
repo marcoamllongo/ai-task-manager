@@ -5,6 +5,7 @@ import com.marcolongo.aitaskmanager.dto.TaskResponse;
 import com.marcolongo.aitaskmanager.dto.UpdateTaskRequest;
 import com.marcolongo.aitaskmanager.dto.UpdateTaskStatusRequest;
 import com.marcolongo.aitaskmanager.service.TaskService;
+import com.marcolongo.aitaskmanager.dto.AIAnalysisResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -84,6 +85,17 @@ public class TaskController {
 
         TaskResponse response =
                 taskService.updateTaskStatus(id, request);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{id}/ai-analysis")
+    public ResponseEntity<AIAnalysisResponse> analyzeTask(
+            @PathVariable UUID id
+    ) {
+
+        AIAnalysisResponse response =
+                taskService.analyzeTask(id);
 
         return ResponseEntity.ok(response);
     }
