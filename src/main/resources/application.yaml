@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ai-task-manager
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aitaskmanager
+    username: postgres
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+    ai:
+      openai:
+        api-key: ${OPENAI_API_KEY}
