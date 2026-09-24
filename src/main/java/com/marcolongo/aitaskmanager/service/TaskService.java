@@ -4,6 +4,7 @@ import com.marcolongo.aitaskmanager.dto.CreateTaskRequest;
 import com.marcolongo.aitaskmanager.dto.TaskResponse;
 import com.marcolongo.aitaskmanager.dto.UpdateTaskRequest;
 import com.marcolongo.aitaskmanager.entity.Task;
+import com.marcolongo.aitaskmanager.exception.TaskNotFoundException;
 import com.marcolongo.aitaskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class TaskService {
 
         Task task = taskRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Task not found")
+                        new TaskNotFoundException(id)
                 );
 
         return toResponse(task);
@@ -55,7 +56,7 @@ public class TaskService {
 
         Task task = taskRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Task not found")
+                        new TaskNotFoundException(id)
                 );
 
         task.setTitle(request.title());
@@ -72,7 +73,7 @@ public class TaskService {
 
         Task task = taskRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("Task not found")
+                        new TaskNotFoundException(id)
                 );
 
         taskRepository.delete(task);
